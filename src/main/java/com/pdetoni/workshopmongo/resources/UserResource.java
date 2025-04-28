@@ -1,5 +1,6 @@
 package com.pdetoni.workshopmongo.resources;
 
+import com.pdetoni.workshopmongo.domain.Post;
 import com.pdetoni.workshopmongo.domain.User;
 import com.pdetoni.workshopmongo.dto.UserDTO;
 import com.pdetoni.workshopmongo.repository.UserRepository;
@@ -60,6 +61,12 @@ public class UserResource {
         obj.setId(id);
         obj = service.update(obj);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping(value = "/{id}/posts")
+    public ResponseEntity<List<Post>> findPosts(@PathVariable String id) {
+        User obj = service.findById(id);
+        return ResponseEntity.ok().body(obj.getPosts());
     }
 
 }
